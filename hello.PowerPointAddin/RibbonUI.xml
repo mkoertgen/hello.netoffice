@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<customUI xmlns="http://schemas.microsoft.com/office/2006/01/customui" onLoad="OnLoadRibbonUI" >
+  <ribbon>
+    <tabs>
+      <tab id="hello.PowerPointAddin.MyAddin" label="MyAddin">
+        <group id="group1" label="Example">
+          <button id="aboutButton" label="About" imageMso="AdvertisePublishAs" size="large" onAction="OnClickAboutButton" />
+          <toggleButton id="paneVisibleToggleButton" label="Sample Pane" imageMso="CreateFormBlankForm" size="large" getPressed="OnGetPressedPanelToggle" onAction="OnCheckPanelToggle" />
+        </group>
+      </tab>
+    </tabs>
+  </ribbon>
+</customUI>
