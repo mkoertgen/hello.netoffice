@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
@@ -144,7 +145,7 @@ namespace hello.PowerPointAddin
         {
             Trace.Listeners.Add(new NLogTraceListener());
 
-            var logconfig = logConfigFileName ?? "NLog.config";
+            var logconfig = logConfigFileName ?? Path.Combine(GetDirectory(Assembly.GetExecutingAssembly()), "NLog.config");
             var path = Environment.ExpandEnvironmentVariables(logconfig);
             var logConfigFile = new FileInfo(path);
             if (logConfigFile.Exists)
@@ -155,6 +156,14 @@ namespace hello.PowerPointAddin
                 // NOTE that we log the warning AFTER initializing logging!
                 Trace.TraceWarning("Unable to find log configuration file: '{0}'. Using default configuration", logconfig);
             }
+        }
+
+        static string GetDirectory(Assembly assembly)
+        {
+            var codeBase = assembly.CodeBase;
+            var uri = new UriBuilder(codeBase);
+            var assemblyFile = Uri.UnescapeDataString(uri.Path);
+            return Path.GetDirectoryName(assemblyFile) ?? string.Empty;
         }
 
         private static LoggingConfiguration DefaultLogging(LogLevel logLevel = null)
@@ -187,6 +196,5 @@ namespace hello.PowerPointAddin
 
             return config;
         }
-
     }
 }
