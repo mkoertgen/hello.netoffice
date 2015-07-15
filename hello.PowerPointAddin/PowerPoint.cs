@@ -20,7 +20,7 @@ namespace hello.PowerPointAddin
                 var isAdmin = IsAdministrator();
                 try
                 {
-                    Com.Register<MyAddin>();
+                    Com.Register<TAddin>();
                     if (isAdmin) return;
                 }
                 catch (UnauthorizedAccessException)
